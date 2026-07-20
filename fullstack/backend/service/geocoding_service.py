@@ -10,7 +10,7 @@ class GeocodingService:
 
     ## Service responsible solely for communicating with the Open-Meteo Geocoding API
     ## and parsing the response.
-    async def search_location(self, address: str) -> Location:
+    async def search_location(self, address: str):
         """async with httpx.AsyncClient() as client:
             response = await client.get(
                 geocoding_url,

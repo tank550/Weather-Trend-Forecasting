@@ -1,6 +1,7 @@
 from __future__ import annotations
-from typing import List
-from pydantic import BaseModel, Field
+from typing import List, Optional
+from pydantic import BaseModel, field_validator
+from datetime import date
 
 
 
@@ -93,7 +94,37 @@ class OpenMeteoForecastResponse(BaseModel):
 
 
 
-class CurrentWeatherQuery(BaseModel):
-    location: str | None = Field(default=None, description="City name or zip code")
-    lat: float | None = None
-    lon: float | None = None
+
+
+class WeatherCreate(BaseModel):
+    latitude: float
+    longitude: float
+    start_date: date
+    end_date: date
+    location_name: str
+    country: str
+
+    
+    @field_validator("longitude")
+    @classmethod
+    def validate_longitude(cls, v):
+        if not -180 <= v <= 180:
+            raise ValueError("Longitude must be between -180 and 180")
+        return v
+
+    @field_validator("latitude")
+    @classmethod
+    def validate_latitude(cls, v):
+        if not -90 <= v <= 90:
+            raise ValueError("Latitude must be between -90 and 90")
+        return v
+
+    @field_validator("end_date")
+    @classmethod
+    def check_date_range(cls, end_date, info):
+        start_date = info.data.get("start_date")
+        if start_date and end_date < start_date:
+            raise ValueError("end_date must be >= start_date")
+        if start_date and (end_date - start_date).days > 16:
+            raise ValueError("The date range cannot exceed 16 days (Open-Meteo API limit)")
+        return end_date

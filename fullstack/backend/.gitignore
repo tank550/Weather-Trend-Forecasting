@@ -1,0 +1,7 @@
+.env
+weather/*
+/service/__pycache__/*
+/controller/__pycache__/*
+/model/__pycache__/*
+__pycache__/*
+/db/__pycache__/*

@@ -114,4 +114,6 @@ def transform_open_meteo_response(api_response: dict) -> list[dict]:
 
     return forecast_by_day
 
+
+
 open_meteo_service = OpenMeteoService()

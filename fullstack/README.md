@@ -81,7 +81,7 @@ nvidia_nim_api_key=your_nvidia_nim_api_key
 uvicorn main:app --reload
 ```
 
-The API is then available at `http://localhost:8000`, with interactive Swagger docs at `http://localhost:8000/docs`.
+The API is then available at `http://localhost:8000`, with interactive Swagger docs at `http://localhost:8000/docs` or directly in online `https://weather-trend-forecasting-3j9p.onrender.com/docs`.
 
 ## Main Endpoints
 

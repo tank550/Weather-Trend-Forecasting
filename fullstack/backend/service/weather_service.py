@@ -149,9 +149,10 @@ class OpenMeteoService:
                 raise ValueError(f"Weather data with ID {weather_id} not found.")
 
             # Update the fields of the existing weather data
-            for key, value in updated_data.items():
+            for key, value in updated_data.model_dump().items():
                 if hasattr(existing_weather, key):
                     setattr(existing_weather, key, value)
+                
 
             params = {
                         "latitude": existing_weather.latitude,
@@ -185,7 +186,7 @@ class OpenMeteoService:
         except Exception as exc:
             raise ValueError(f"Error updating weather data: {exc}") from exc
 
-        return existing_weather
+        return update
 
 
     async def weather_explain_by_llm(self, weather_data: OpenMeteoForecastResponse):

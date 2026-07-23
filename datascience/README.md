@@ -33,7 +33,7 @@ This project analyzes the **Global Weather Repository** dataset (Kaggle) to iden
 
 ```
 .
-├── Weather_6_corrected.ipynb   # Main analysis notebook (cleaning → EDA → forecasting → feature importance)
+├── weather.ipynb   # Main analysis notebook (cleaning → EDA → forecasting → feature importance)
 ├── requirements.txt            # Python dependencies
 └── README.md                   # This file
 ```

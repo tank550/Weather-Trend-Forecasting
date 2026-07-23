@@ -23,7 +23,7 @@ class CurrentUnits(BaseModel):
 
 
 class Current(BaseModel):
-    time: int  # unixtime (timeformat=unixtime)
+    time: str  # unixtime (timeformat=unixtime)
     interval: int
     temperature_2m: float
     relative_humidity_2m: int
@@ -48,7 +48,7 @@ class HourlyUnits(BaseModel):
 
 
 class Hourly(BaseModel):
-    time: List[int]
+    time: List[str]
     temperature_2m: List[float]
     weather_code: List[int]
     precipitation_probability: List[int]
@@ -65,7 +65,7 @@ class DailyUnits(BaseModel):
 
 
 class Daily(BaseModel):
-    time: List[int]
+    time: List[str]
     weather_code: List[int]
     temperature_2m_max: List[float]
     wind_speed_10m_max: List[float]
@@ -118,6 +118,20 @@ class WeatherCreate(BaseModel):
         if not -90 <= v <= 90:
             raise ValueError("Latitude must be between -90 and 90")
         return v
+
+    @field_validator("end_date")
+    @classmethod
+    def check_date_range(cls, end_date, info):
+        start_date = info.data.get("start_date")
+        if start_date and end_date < start_date:
+            raise ValueError("end_date must be >= start_date")
+        if start_date and (end_date - start_date).days > 16:
+            raise ValueError("The date range cannot exceed 16 days (Open-Meteo API limit)")
+        return end_date
+
+class WeatherUpdate(BaseModel):
+    start_date: date
+    end_date: date
 
     @field_validator("end_date")
     @classmethod

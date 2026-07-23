@@ -35,6 +35,7 @@ backend/
 │   ├── weather_service.py         # Open-Meteo + LLM calls + DB orchestration
 │   ├── geocoding_service.py       # Open-Meteo Geocoding calls
 │   └── any_url_check.py           # Generic httpx wrapper with error handling
+│   └── export_service.py          # Export to csv or json logics
 ├── model/                         # Pydantic schemas (DTO / request validation)
 │   ├── weather_models.py
 │   └── geocoding.py

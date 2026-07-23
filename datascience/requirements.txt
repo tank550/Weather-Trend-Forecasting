@@ -1,0 +1,13 @@
+pandas
+numpy
+seaborn
+matplotlib
+scikit-learn
+scipy
+xgboost
+statsmodels
+prophet
+pycountry-convert
+kagglehub
+joblib
+jupyter
